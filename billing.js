@@ -28,8 +28,6 @@ module.exports = {
 	 */
 	log: (appId, method) => {
 		//You will need to decide the best way to utilise the CloudWatch API e.g. namespaces, dimensions, metricName, units, etc
-
-		// TODO: Add CloudWatch mapping here
 		logger.log({
 			appId,
 			method
