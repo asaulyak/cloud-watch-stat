@@ -3,7 +3,7 @@ const moment = require('moment');
 
 class LogReader {
 	read(appId, method, startDate, endDate) {
-		return cloudWatchLogs(appId, method, startDate, endDate)
+		return cloudWatchLogs.read(appId, method, startDate, endDate)
 			.then((entries) => {
 				return entries.map((item) => {
 					return {

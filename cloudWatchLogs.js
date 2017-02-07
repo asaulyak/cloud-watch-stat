@@ -5,6 +5,10 @@ class LogWriter {
 		this.cloudWatch = aws.CloudWatchLogs({apiVersion: '2010-08-01'});
 	}
 
+	/**
+	 * Writes logs to the AWS CloudWatch using putMetricData
+	 * @param {Array} messages - Array of messages to be recorded
+	 */
 	write(messages) {
 		messages.forEach((message) => {
 			this.cloudWatch.putMetricData({
@@ -27,6 +31,14 @@ class LogWriter {
 		});
 	}
 
+	/**
+	 * Obtains metric filtered data from CloudWatch
+	 * @param {String} appId - Client application identifier
+	 * @param {String} method - Identifies the API method
+	 * @param {Date} startDate - Date to start with
+	 * @param {Date} endDate - Date to end with
+	 * @returns {Promise<UsageStatistic[]>}
+	 */
 	read(appId, method, startDate, endDate) {
 		return new Promise((resolve, reject) => {
 			this.cloudWatch.getMetricStatistics({
