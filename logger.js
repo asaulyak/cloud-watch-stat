@@ -1,28 +1,40 @@
 const config = require('./config');
-const cloudWatchWriter = require('./cloudWatchWriter');
+const cloudWatchWriter = require('./cloudWatchLogs');
 
 class Logger {
 	constructor() {
-		this.queue = [];
+		this.queue = {};
 		this.start();
 	}
 
 	flush() {
-		// TODO: Add CloudWatch API call here
-		cloudWatchWriter.write(this.queue);
-		this.queue = [];
+		const messages = Object.keys(this.queue)
+			.reduce((previous, current) => {
+				previous.push.apply(previous, Object.keys(this.queue[current]).map((method) => {
+					return {
+						appId: current,
+						method: method,
+						count: this.queue[current][method]
+					};
+				}));
+
+				return previous;
+			}, []);
+
+		cloudWatchWriter.write(messages);
+
+		this.queue = {};
 	}
 
-	log(data) {
-		this.queue.push({
-			timestamp: Date.now(),
-			message: 'Method ${data.method} was called for app ${data.appId}'
-		});
+	log(appId, method) {
+		const app = this.queue[appId] = this.queue[appId] || {};
+
+		app[method] = (app[method] || 0) + 1;
 	}
 
 	start() {
 		this.intervalId = setInterval(() => {
-			this.flush()
+			this.flush();
 		}, config.schedule.updateInterval);
 	}
 

@@ -45,4 +45,4 @@ module.exports = {
 	getStats: (appId, method, startDate, endDate) => {
 		//Should only make a single request to CloudWatch regardless of input
 	},
-}
+};
