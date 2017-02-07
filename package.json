@@ -1,0 +1,19 @@
+{
+  "name": "billing",
+  "version": "1.0.0",
+  "description": "",
+  "main": "billing.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "generate-docs": "node_modules/.bin/jsdoc -c jsdoc.json"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "docdash": "^0.4.0",
+    "jsdoc": "^3.4.3"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.9.0"
+  }
+}
