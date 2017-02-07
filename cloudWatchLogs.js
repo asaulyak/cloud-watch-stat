@@ -37,7 +37,7 @@ class LogWriter {
 	 * @param {String} method - Identifies the API method
 	 * @param {Date} startDate - Date to start with
 	 * @param {Date} endDate - Date to end with
-	 * @returns {Promise<UsageStatistic[]>}
+	 * @returns {Promise}
 	 */
 	read(appId, method, startDate, endDate) {
 		return new Promise((resolve, reject) => {
