@@ -21,7 +21,7 @@ cw.listMetrics(params, function(err, data) {
   if (err) {
     console.log("Error", err);
   } else {
-    console.log("Metrics", JSON.stringify(data.Metrics));
+    console.log("Metrics", JSON.stringify(data));
   }
 });
 
