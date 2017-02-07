@@ -26,6 +26,33 @@ class LogWriter {
 			});
 		});
 	}
+
+	read(appId, method, startDate, endDate) {
+		return new Promise((resolve, reject) => {
+			this.cloudWatch.getMetricStatistics({
+					EndTime: endDate,
+					MetricName: 'MethodCalls',
+					Namespace: appId,
+					Period: 0,
+					StartTime: startDate,
+					Dimensions: [
+						{
+							Name: 'Method',
+							Value: method
+						}
+					],
+					Unit: 'Count'
+				},
+				(error, data) => {
+					if (error) {
+						reject(error);
+					}
+					else {
+						resolve(data.Datapoints);
+					}
+				});
+		});
+	}
 }
 
 module.exports = new LogWriter();

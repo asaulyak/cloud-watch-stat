@@ -3,7 +3,8 @@
  * @module billing
  */
 
-const logger = require('./logger');
+const logWriter = require('./logWriter');
+const logReader = require('./logReader');
 
 module.exports = {
 	/**
@@ -28,10 +29,7 @@ module.exports = {
 	 */
 	log: (appId, method) => {
 		//You will need to decide the best way to utilise the CloudWatch API e.g. namespaces, dimensions, metricName, units, etc
-		logger.log({
-			appId,
-			method
-		});
+		logWriter.log(appId, method);
 	},
 
 	/**
@@ -44,5 +42,6 @@ module.exports = {
 	 */
 	getStats: (appId, method, startDate, endDate) => {
 		//Should only make a single request to CloudWatch regardless of input
+		logReader.read(appId, method, Date.parse(startDate) || Date.now() - 30 * 24 * 60 * 60 * 1000, Date.parse(endDate) || Date.now());
 	},
 };

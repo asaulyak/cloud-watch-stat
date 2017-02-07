@@ -1,7 +1,7 @@
 const config = require('./config');
-const cloudWatchWriter = require('./cloudWatchLogs');
+const cloudWatchLogs = require('./cloudWatchLogs');
 
-class Logger {
+class LogWriter {
 	constructor() {
 		this.queue = {};
 		this.start();
@@ -21,7 +21,7 @@ class Logger {
 				return previous;
 			}, []);
 
-		cloudWatchWriter.write(messages);
+		cloudWatchLogs.write(messages);
 
 		this.queue = {};
 	}
@@ -43,4 +43,4 @@ class Logger {
 	}
 }
 
-module.exports = new Logger();
+module.exports = new LogWriter();
