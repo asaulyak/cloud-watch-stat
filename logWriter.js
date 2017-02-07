@@ -3,16 +3,13 @@ const cloudWatchLogs = require('./cloudWatchLogs');
 
 class LogWriter {
 
-	/**
-	 * Constructor that starts logging scheduler.
-	 */
 	constructor() {
 		this.queue = {};
 		this.start();
 	}
 
 	/**
-	 * Interval handler that writes messages from queue and clears it.
+	 * Interval handler writes messages from queue and clears it.
 	 */
 	flush() {
 		const messages = Object.keys(this.queue)
@@ -34,7 +31,7 @@ class LogWriter {
 	}
 
 	/**
-	 * Adds given method for given appId
+	 * Logs given method for given appId
 	 * @param {String} appId - Client application identifier
 	 * @param {String} method - Identifies the API method
 	 */
